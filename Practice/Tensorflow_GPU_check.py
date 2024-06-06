@@ -1,3 +1,6 @@
+"""
+Check the GPU status and version of the tensorflow installation
+"""
 import tensorflow as tf
 
 print(tf.__version__)
