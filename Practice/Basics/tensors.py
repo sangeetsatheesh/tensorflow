@@ -1,3 +1,4 @@
+import numpy as np
 import tensorflow as tf
 
 scalar = tf.constant(5)
@@ -62,7 +63,6 @@ print(f"Random tensor dtype from uniform distribution:", random2.dtype)
 print(f"Random tensor shape from uniform distribution:", random2.shape)
 
 # Shuffle
-
 not_shuffled = tf.constant([[1, 2], [3, 4], [5, 6]])
 print(f"Not shuffled tensor values:\n", not_shuffled.numpy())
 tf.random.set_seed(42)
@@ -71,7 +71,6 @@ not_shuffled = tf.random.shuffle(not_shuffled)
 print(f"After shuffling tensor :\n", not_shuffled.numpy())
 
 # Create a rank 4 tensors of all zeros and ones
-
 r4_tensor_zeros = tf.zeros([2, 3, 4, 5])
 print(f"Rank 4 tensor with zeros:\n", r4_tensor_zeros.numpy())
 print(f"Shape of rank 4 tensor without zeros:\n", r4_tensor_zeros.shape)
@@ -105,6 +104,7 @@ B = tf.transpose(A)
 print(f"Values of Matrix B which is the transpose of A:\n{B.numpy()}")
 print(f"Matrix B shape:{B.shape}")
 print(f"Note: Reshape and transpose are different!")
+
 # Performing Dot product operation
 C = tf.tensordot(X, Y, axes=1)
 print(f"Values of Matrix C which is the dot product of X and Y:\n{C.numpy()}")
@@ -120,3 +120,18 @@ print(f"Maximum value of Matrix C:\n{tf.reduce_max(C)}")
 print(f"Mean value of Matrix C:\n{tf.reduce_mean(C)}")
 print(f"Product of all values Matrix X (for simplicity -> (6!)) :\n{tf.reduce_prod(X)}")
 print(f"Sum of Matrix C:\n{tf.reduce_sum(C)}")
+print(f"Tensor ndim value: {C.ndim}")
+
+
+# Tensorflow decorators
+@tf.function
+def my_function(x, y):
+    return x ** 2 + y
+
+
+D = tf.constant(np.arange(0, 10))
+E = tf.constant(np.arange(10, 20))
+print(f"D matrix values:\n{D.numpy()}")
+print(f"E matrix values:\n{E.numpy()}")
+F = my_function(D, E)
+print(f"Value of F : (D and E passing through tensorflow decorated function which calculates x**2 + y):\n{F.numpy()}")
