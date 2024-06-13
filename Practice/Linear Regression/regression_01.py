@@ -31,4 +31,3 @@ history = model.fit(X, y, epochs=100)
 
 plt.plot(history.history['loss'])
 plt.show()
-
