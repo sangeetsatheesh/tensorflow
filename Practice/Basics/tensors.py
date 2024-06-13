@@ -95,3 +95,28 @@ print(f"Matrix multiplying these two matrices")
 Z = tf.matmul(X, Y)
 print(f"Z matrix values:\n{Z.numpy()}")
 print(f"Shape of Z matrix {Z.shape}")
+
+print(f"Matrix X is:\n{X.numpy()}")
+A = tf.reshape(X, shape=(2, 3))
+print(f"Matrix A values from reshaping X:\n{A.numpy()}")
+print(f"Matrix A shape:{A.shape}")
+
+B = tf.transpose(A)
+print(f"Values of Matrix B which is the transpose of A:\n{B.numpy()}")
+print(f"Matrix B shape:{B.shape}")
+print(f"Note: Reshape and transpose are different!")
+# Performing Dot product operation
+C = tf.tensordot(X, Y, axes=1)
+print(f"Values of Matrix C which is the dot product of X and Y:\n{C.numpy()}")
+print(f"Matrix C type:{C.dtype}")
+print(f"Changing type to float")
+C = tf.cast(C, tf.float32)
+print(f"Values of Matrix C after cast():\n{C.numpy()}")
+print(f"Matrix C type:{C.dtype}")
+
+# Find the minimum, maximum, mean and sum of Matrix C
+print(f"Minimum value of Matrix C:\n{tf.reduce_min(C)}")
+print(f"Maximum value of Matrix C:\n{tf.reduce_max(C)}")
+print(f"Mean value of Matrix C:\n{tf.reduce_mean(C)}")
+print(f"Product of all values Matrix X (for simplicity -> (6!)) :\n{tf.reduce_prod(X)}")
+print(f"Sum of Matrix C:\n{tf.reduce_sum(C)}")
