@@ -1,5 +1,4 @@
 import tensorflow as tf
-import numpy as np
 
 scalar = tf.constant(5)
 print(f"Scalar value:", scalar)
