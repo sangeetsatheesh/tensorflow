@@ -70,3 +70,29 @@ tf.random.set_seed(42)
 # print(f"After shuffling tensor :\n", tf.random.shuffle(not_shuffled))
 not_shuffled = tf.random.shuffle(not_shuffled)
 print(f"After shuffling tensor :\n", not_shuffled.numpy())
+
+# Create a rank 4 tensors of all zeros and ones
+
+r4_tensor_zeros = tf.zeros([2, 3, 4, 5])
+print(f"Rank 4 tensor with zeros:\n", r4_tensor_zeros.numpy())
+print(f"Shape of rank 4 tensor without zeros:\n", r4_tensor_zeros.shape)
+print(f"Dataype of rank 4 tensor without zeros:\n", r4_tensor_zeros.dtype)
+print(f"Shape of rank 4 tensor with zeros:\n", r4_tensor_zeros.shape)
+print(f"Elements of axis 0 of tensor:\n", r4_tensor_zeros.shape[0])
+print(f"Elements of axis 1 of tensor:\n", r4_tensor_zeros.shape[1])
+print(f"Elements of last axis of tensor:\n", r4_tensor_zeros.shape[-1])
+print(f"Total number of elements in rank 4 tensor:\n", tf.size(r4_tensor_zeros).numpy())
+print(f"Expand dims last axis:\n", tf.expand_dims(r4_tensor_zeros, axis=-1))
+
+r4_tensor_zeros += 10
+print(f"Add 10 to all elements:\n", r4_tensor_zeros.numpy())
+
+X = tf.constant([[1, 2], [3, 4], [5, 6]])
+Y = tf.constant([[7, 8, 9], [10, 11, 12]])
+
+print(f"X matrix values are:\n{X.numpy()}\nand Y matrix values are\n{Y.numpy()}")
+print(f"Shape of X matrix {X.shape} and Y matrix {Y.shape}")
+print(f"Matrix multiplying these two matrices")
+Z = tf.matmul(X, Y)
+print(f"Z matrix values:\n{Z.numpy()}")
+print(f"Shape of Z matrix {Z.shape}")
