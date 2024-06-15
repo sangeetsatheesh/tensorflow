@@ -120,5 +120,6 @@ history_1 = model_1.fit(train_ds,
 
 
 model_2 = tf.keras.models.Sequential([
+    tf.keras.layers.Conv2D(10, 3, activation='relu', input_shape=(224, 224, 3)),
 
 ])
