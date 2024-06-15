@@ -121,5 +121,8 @@ history_1 = model_1.fit(train_ds,
 
 model_2 = tf.keras.models.Sequential([
     tf.keras.layers.Conv2D(10, 3, activation='relu', input_shape=(224, 224, 3)),
+    tf.keras.layers.MaxPool2D(pool_size=2, padding='valid'),
+    tf.keras.layers.Conv2D(64, 3, activation='relu'),
+    tf.keras.layers.MaxPool2D(pool_size=2, padding='valid')
 
 ])
