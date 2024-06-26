@@ -140,7 +140,7 @@ def train_val_generators(training_dir, validation_dir):
                                        shear_range=0.1,
                                        zoom_range=0.1,
                                        horizontal_flip=0.1,
-                                       fill_mode=0.1)
+                                       fill_mode='reflect')
 
     train_generator = train_datagen.flow_from_directory(directory=training_dir,
                                                         batch_size=32,
@@ -154,7 +154,7 @@ def train_val_generators(training_dir, validation_dir):
                                             shear_range=0.1,
                                             zoom_range=0.1,
                                             horizontal_flip=0.1,
-                                            fill_mode=0.1)
+                                            fill_mode='reflect')
 
     validation_generator = validation_datagen.flow_from_directory(directory=validation_dir,
                                                                   batch_size=32,
@@ -164,3 +164,70 @@ def train_val_generators(training_dir, validation_dir):
 
 
 train_generator, validation_generator = train_val_generators(TRAINING_DIR, VALIDATION_DIR)
+
+
+def create_model():
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(150, 150, 3)),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(256, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
+    ])
+
+    model.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.001),
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
+
+    return model
+
+
+model = create_model()
+
+# Train the model
+# Note that this may take some time.
+history = model.fit(train_generator,
+                    epochs=15,
+                    verbose=1,
+                    validation_data=validation_generator)
+
+# -----------------------------------------------------------
+# Retrieve a list of list results on training and test data
+# sets for each training epoch
+# -----------------------------------------------------------
+acc = history.history['accuracy']
+val_acc = history.history['val_accuracy']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(len(acc))  # Get number of epochs
+
+# ------------------------------------------------
+# Plot training and validation accuracy per epoch
+# ------------------------------------------------
+plt.plot(epochs, acc, 'r', "Training Accuracy")
+plt.plot(epochs, val_acc, 'b', "Validation Accuracy")
+plt.title('Training and validation accuracy')
+plt.show()
+print("")
+
+# ------------------------------------------------
+# Plot training and validation loss per epoch
+# ------------------------------------------------
+plt.plot(epochs, loss, 'r', "Training Loss")
+plt.plot(epochs, val_loss, 'b', "Validation Loss")
+plt.show()
+
+
+def download_history():
+    import pickle
+
+    with open('history_augmented.pkl', 'wb') as f:
+        pickle.dump(history.history, f)
+
+
+download_history()
