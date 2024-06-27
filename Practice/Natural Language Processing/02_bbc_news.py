@@ -222,7 +222,7 @@ def create_model(num_words, embedding_dim, maxlen):
     model = tf.keras.Sequential([
         tf.keras.layers.Embedding(num_words, embedding_dim, input_length=maxlen),
         tf.keras.layers.GlobalAveragePooling1D(),
-        tf.keras.layers.Dense(20, activation="relu"),
+        # tf.keras.layers.Dense(20, activation="relu"),
         tf.keras.layers.Dense(5, activation='softmax')
     ])
 
