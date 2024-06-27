@@ -147,14 +147,7 @@ def train_val_generators(training_dir, validation_dir):
                                                         class_mode='binary',
                                                         target_size=(150, 150))
 
-    validation_datagen = ImageDataGenerator(rescale=1.0 / 255.,
-                                            rotation_range=0.1,
-                                            width_shift_range=0.1,
-                                            height_shift_range=0.1,
-                                            shear_range=0.1,
-                                            zoom_range=0.1,
-                                            horizontal_flip=0.1,
-                                            fill_mode='reflect')
+    validation_datagen = ImageDataGenerator(rescale=1.0 / 255.)
 
     validation_generator = validation_datagen.flow_from_directory(directory=validation_dir,
                                                                   batch_size=32,
