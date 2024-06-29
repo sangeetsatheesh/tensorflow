@@ -66,12 +66,10 @@ SPLIT_TIME = 1100
 
 # GRADED FUNCTION: train_val_split
 def train_val_split(time, series, time_step=SPLIT_TIME):
-    ### START CODE HERE
     time_train = time[:time_step]
     series_train = series[:time_step]
     time_valid = time[time_step:]
     series_valid = series[time_step:]
-    ### END CODE HERE
 
     return time_train, series_train, time_valid, series_valid
 
@@ -90,10 +88,8 @@ plt.show()
 
 # GRADED FUNCTION: compute_metrics
 def compute_metrics(true_series, forecast):
-    ### START CODE HERE
     mse = keras.losses.mse(y_true=true_series, y_pred=forecast).numpy()
     mae = keras.losses.mae(true_series, forecast).numpy()
-    ### END CODE HERE
 
     return mse, mae
 
@@ -112,9 +108,7 @@ print(f"mse: {mse}, mae: {mae} for series of ones and prediction of ones\n")
 
 print(f"metrics are numpy numeric types: {np.issubdtype(type(mse), np.number)}")
 
-### START CODE HERE
 naive_forecast = SERIES[SPLIT_TIME - 1:-1]
-### END CODE HERE
 
 print(f"validation series has shape: {series_valid.shape}\n")
 print(f"naive forecast has shape: {naive_forecast.shape}\n")
@@ -140,14 +134,11 @@ def moving_average_forecast(series, window_size):
 
     forecast = []
 
-    ### START CODE HERE
     for time in range(len(series) - window_size):
         forecast.append(series[time:time + window_size].mean())
 
     # Convert to a numpy array
     np_forecast = np.array(forecast)
-
-    ### END CODE HERE
 
     return np_forecast
 
@@ -172,10 +163,8 @@ mse, mae = compute_metrics(series_valid, moving_avg)
 
 print(f"mse: {mse:.2f}, mae: {mae:.2f} for moving average forecast")
 
-### START CODE HERE
 diff_series = SERIES[365:] - SERIES[:-365]
 diff_time = TIME[365:]
-### END CODE HERE
 
 print(f"Whole SERIES has {len(SERIES)} elements so the differencing should have {len(SERIES) - 365} elements\n")
 print(f"diff series has shape: {diff_series.shape}\n")
@@ -185,8 +174,6 @@ plt.figure(figsize=(10, 6))
 plot_series(diff_time, diff_series)
 plt.show()
 
-### START CODE HERE
-
 # Apply the moving avg to diff series
 diff_moving_avg = moving_average_forecast(diff_series, 50)
 
@@ -194,8 +181,6 @@ print(f"moving average forecast with diff series has shape: {diff_moving_avg.sha
 
 # Perform the correct slicing
 diff_moving_avg = diff_moving_avg[SPLIT_TIME - 365 - 50:]
-
-### END CODE HERE
 
 print(f"moving average forecast with diff series after slicing has shape: {diff_moving_avg.shape}\n")
 print(f"comparable with validation series: {series_valid.shape == diff_moving_avg.shape}")
@@ -205,8 +190,6 @@ plot_series(time_valid, diff_series[1100 - 365:])
 plot_series(time_valid, diff_moving_avg)
 plt.show()
 
-### START CODE HERE
-
 # Slice the whole SERIES to get the past values
 past_series = SERIES[SPLIT_TIME - 365:-365]
 
@@ -214,8 +197,6 @@ print(f"past series has shape: {past_series.shape}\n")
 
 # Add the past to the moving average of diff series
 diff_moving_avg_plus_past = past_series + diff_moving_avg
-
-### END CODE HERE
 
 print(f"moving average forecast with diff series plus past has shape: {diff_moving_avg_plus_past.shape}\n")
 print(f"comparable with validation series: {series_valid.shape == diff_moving_avg_plus_past.shape}")
@@ -230,8 +211,6 @@ mse, mae = compute_metrics(series_valid, diff_moving_avg_plus_past)
 
 print(f"mse: {mse:.2f}, mae: {mae:.2f} for moving average plus past forecast")
 
-### START CODE HERE
-
 # Perform the correct split of SERIES
 # Hint: When slicing the `SERIES` data, start from the `SPLIT_TIME` minus 370 steps. See the cell above for more hints.
 smooth_past_series = moving_average_forecast(SERIES[SPLIT_TIME - 370:-360], 10)
@@ -240,8 +219,6 @@ print(f"smooth past series has shape: {smooth_past_series.shape}\n")
 
 # Add the smoothed out past values to the moving avg of diff series
 diff_moving_avg_plus_smooth_past = smooth_past_series + diff_moving_avg
-
-### END CODE HERE
 
 print(f"moving average forecast with diff series plus past has shape: {diff_moving_avg_plus_smooth_past.shape}\n")
 print(f"comparable with validation series: {series_valid.shape == diff_moving_avg_plus_smooth_past.shape}")
