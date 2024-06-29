@@ -111,29 +111,33 @@ print(f'one-hot label: {ys[elem_number]}')
 print(f'index of label: {np.argmax(ys[elem_number])}')
 
 # Build the model
-model = Sequential([
-    Embedding(total_words, 64, input_length=max_sequence_len - 1),
-    Bidirectional(LSTM(20)),
-    Dense(total_words, activation='softmax')
+model_mal = Sequential([
+    Embedding(total_words, 100, input_length=max_sequence_len_mal - 1),
+    Bidirectional(LSTM(32, return_sequences=True)),
+    Bidirectional(LSTM(32)),
+    Dense(total_words_mal_cleaned, activation='softmax')
 ])
 
-model_mal = Sequential([
+model_mal1 = Sequential([
     Embedding(total_words_mal_cleaned, 64, input_length=max_sequence_len_mal - 1),
     Bidirectional(LSTM(20)),
     Dense(total_words_mal_cleaned, activation='softmax')
 ])
 
 # Use categorical crossentropy because this is a multi-class problem
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+# model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 model_mal.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Print the model summary
-model.summary()
+# model.summary()
 model_mal.summary()
 
 # Train the model
 # history = model.fit(xs, ys, epochs=500)
 history_mal = model_mal.fit(xs_mal, ys_mal, epochs=500)
+
+
+# history = model.fit(xs_mal, ys_mal, epochs=500)
 
 
 # Plot utility
@@ -185,7 +189,8 @@ plot_graphs(history_mal, 'accuracy')
 #
 
 
-seed_text = "നമുക്ക്"
+# seed_text = "ഒരു രാത്രിമഴ"
+seed_text = "എല്ലാം നന്നായി"
 
 # Define total words to predict
 next_words = 100
@@ -203,7 +208,7 @@ for _ in range(next_words):
     probabilities = model_mal.predict(token_list)
 
     # Pick a random number from [1,2,3]
-    choice = np.random.choice([1, 2])
+    choice = np.random.choice([1, 2, 3])
 
     # Sort the probabilities in ascending order
     # and get the random choice from the end of the array
