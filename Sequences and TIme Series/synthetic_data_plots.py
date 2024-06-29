@@ -336,8 +336,6 @@ series = autocorrelation_impulses(impulses_signal, {1: 0.70, 50: 0.2})
 # Plot the results
 plot_series(time, series)
 
-
-
 # Generate autocorrelated data with an upward trend
 series = autocorrelation(time, 10, seed=42) + trend(time, 2)
 
@@ -349,7 +347,6 @@ series = autocorrelation(time, 10, seed=42) + seasonality(time, period=50, ampli
 
 # Plot the results
 plot_series(time[:200], series[:200])
-
 
 # Generate data with positive trend
 series = autocorrelation(time, 10, seed=42) + seasonality(time, period=50, amplitude=150) + trend(time, 2)
