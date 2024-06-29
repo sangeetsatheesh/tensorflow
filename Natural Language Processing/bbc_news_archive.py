@@ -6,7 +6,7 @@ import csv
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-with open("./data/bbc-text.csv", 'r') as csvfile:
+with open("data/bbc-text.csv", 'r') as csvfile:
     print(f"First line (header) looks like this:\n\n{csvfile.readline()}")
     print(f"Each data point looks like this:\n\n{csvfile.readline()}")
 
@@ -72,7 +72,7 @@ def parse_data_from_file(filename):
     return sentences, labels
 
 
-sentences, labels = parse_data_from_file("./data/bbc-text.csv")
+sentences, labels = parse_data_from_file("data/bbc-text.csv")
 
 print("ORIGINAL DATASET:\n")
 print(f"There are {len(sentences)} sentences in the dataset.\n")
@@ -81,7 +81,7 @@ print(f"There are {len(labels)} labels in the dataset.\n")
 print(f"The first 5 labels are {labels[:5]}\n\n")
 
 # With a miniature version of the dataset that contains only first 5 rows
-mini_sentences, mini_labels = parse_data_from_file("./data/bbc-text-minimal.csv")
+mini_sentences, mini_labels = parse_data_from_file("data/bbc-text-minimal.csv")
 
 print("MINIATURE DATASET:\n")
 print(f"There are {len(mini_sentences)} sentences in the miniature dataset.\n")

@@ -7,7 +7,7 @@ from tensorflow.keras.utils import load_img
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-base_dir = "./data/"
+base_dir = "data/"
 happy_dir = os.path.join(base_dir, "happy/")
 sad_dir = os.path.join(base_dir, "sad/")
 

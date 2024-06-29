@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import matplotlib.pyplot as plt
 
-with open("./data/bbc-text.csv", 'r') as csvfile:
+with open("data/bbc-text.csv", 'r') as csvfile:
     print(f"First line (header) looks like this:\n\n{csvfile.readline()}")
     print(f"Each data point looks like this:\n\n{csvfile.readline()}")
 NUM_WORDS = 1000
@@ -77,7 +77,7 @@ def parse_data_from_file(filename):
 
 
 # Test the functions
-sentences, labels = parse_data_from_file("./data/bbc-text.csv")
+sentences, labels = parse_data_from_file("data/bbc-text.csv")
 
 print(f"There are {len(sentences)} sentences in the dataset.\n")
 print(f"First sentence has {len(sentences[0].split())} words (after removing stopwords).\n")
