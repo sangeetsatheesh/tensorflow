@@ -146,8 +146,8 @@ def create_model(total_words, max_sequence_len):
     model = Sequential()
     model.add(Embedding(total_words, 100, input_length=max_sequence_len - 1))  # Your Embedding Layer
     model.add(Bidirectional(LSTM(150, return_sequences=True)))  # An LSTM Layer
-    model.add(tf.keras.layers.Dropout(0.2))  # A dropout layer
-    model.add(LSTM(100))  # Another LSTM Layer
+    model.add(tf.keras.layers.Dropout(0.2))  # A dropout layer# Another LSTM Layer
+    model.add(LSTM(100))
     model.add(Dense(total_words * 2, activation='relu'))  # A Dense Layer including regularizers
     model.add(Dense(total_words, activation='softmax'))
     model.compile(loss='categorical_crossentropy',
