@@ -189,7 +189,7 @@ def download_history():
 download_history()
 
 seed_text = "Help me Obi Wan Kenobi, you're my only hope"
-next_words = 100
+next_words = 50
 
 for _ in range(next_words):
     # Convert the text into sequences
